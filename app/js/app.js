@@ -59,9 +59,14 @@ const ATELIER_APP = {
   },
 
   updateThemeButton() {
-    const themeBtn = document.getElementById("theme-toggle-btn");
-    if (themeBtn) {
-      themeBtn.textContent = ATELIER_DATA.theme === "noir" ? "EDITION: BLANC" : "EDITION: NOIR";
+    const themeText = document.getElementById("theme-btn-text");
+    if (themeText) {
+      themeText.textContent = ATELIER_DATA.theme === "noir" ? "EDITION: BLANC" : "EDITION: NOIR";
+    } else {
+      const themeBtn = document.getElementById("theme-toggle-btn");
+      if (themeBtn) {
+        themeBtn.textContent = ATELIER_DATA.theme === "noir" ? "EDITION: BLANC" : "EDITION: NOIR";
+      }
     }
   },
 
