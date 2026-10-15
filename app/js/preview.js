@@ -1,14 +1,18 @@
 /**
- * ATELIER VISTA // EXECUTIVE LIVE PREVIEW MODULE
+ * FIGMA2INSIGHT // EXECUTIVE LIVE PREVIEW MODULE
  * High-Fashion Distraction-Free Executive Presentation Canvas
  */
 
 const ATELIER_PREVIEW = {
   timeframe: "30D",
+  _eventsBound: false,
 
   init() {
     this.render();
-    this.bindEvents();
+    if (!this._eventsBound) {
+      this.bindEvents();
+      this._eventsBound = true;
+    }
   },
 
   bindEvents() {
