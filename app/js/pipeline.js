@@ -1,15 +1,19 @@
 /**
- * ATELIER VISTA // NEURAL PIPELINE RUNNER MODULE
+ * FIGMA2INSIGHT // NEURAL PIPELINE RUNNER MODULE
  * 5-Stage Machine Learning & Synthesis Pipeline Execution Engine
  */
 
 const ATELIER_PIPELINE = {
   activeStepIndex: 0,
   isRunning: false,
+  _eventsBound: false,
 
   init() {
     this.render();
-    this.bindEvents();
+    if (!this._eventsBound) {
+      this.bindEvents();
+      this._eventsBound = true;
+    }
   },
 
   bindEvents() {
