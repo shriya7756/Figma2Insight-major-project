@@ -1,0 +1,212 @@
+========================================================
+  FIGMA2INSIGHT - BEGINNER'S GUIDE TO THE WEBSITE
+========================================================
+
+Welcome to Figma2Insight! This guide explains every button
+and feature on the website in simple, beginner-friendly terms.
+
+
+--------------------------------------------------------
+  TOP NAVIGATION BAR
+--------------------------------------------------------
+
+  Figma2Insight (brand logo)
+    -> Clicking the logo takes you back to the home screen (Archive).
+
+  01 // Archive
+    -> Shows all your Figma designs that have been imported into the system.
+
+  02 // Studio Bench
+    -> Where you inspect and edit individual design components detected by the AI.
+
+  03 // Executive Live
+    -> A live preview of your dashboard as it would look in real life.
+
+  04 // Neural Pipeline
+    -> Shows the AI classification pipeline steps - how the AI processes your design.
+
+  05 // Ingestion
+    -> Where you import a new Figma design into the system.
+
+  PORT 8765 ACTIVE (pill indicator)
+    -> Shows whether your local Python backend is connected and running.
+    -> Green = running fine. If it is off, start plugin_receiver.py on your computer.
+
+  EDITION: NOIR / EDITION: BLANC (button)
+    -> Toggles between dark mode (Noir = black background)
+       and light mode (Blanc = white background).
+
+  + INGEST FIGMA (button)
+    -> Shortcut button that jumps directly to the Ingestion tab
+       so you can import a new Figma file quickly.
+
+
+--------------------------------------------------------
+  01 // ARCHIVE  (Home Page)
+--------------------------------------------------------
+
+This is where all your imported Figma designs live.
+
+  Stats Bar at the top:
+    TOTAL FRAMES   -> Total number of Figma frames imported
+    SYNTHESIZED    -> How many designs the AI has fully processed
+    TO CHECK       -> How many designs are still awaiting review
+    ACCURACY       -> The AI model's overall classification accuracy (e.g., 98.4%)
+
+  Filter Pills:
+    ALL DESIGNS    -> Shows every design (both processed and pending)
+    SYNTHESIZED    -> Shows only designs the AI has fully classified
+    IN REVIEW      -> Shows only designs still being processed or needing review
+
+  Search Box
+    -> Type a frame name or ID to find a specific design quickly.
+    -> Keyboard shortcut: Press "/" to jump to the search box.
+
+  Sort Dropdown:
+    SORT: RECENT         -> Shows newest designs first
+    SORT: TILE DENSITY   -> Sorts by how many components a design has
+    SORT: INFERENCE TIME -> Sorts by how long the AI took to process each design
+
+  View Toggle Buttons:
+    Grid view (square icon)  -> Shows designs as visual cards (like a photo gallery)
+    Table view (list icon)   -> Shows designs as a list/spreadsheet style
+
+  Design Cards (clicking one)
+    -> Opens that design for detailed inspection in Studio Bench.
+
+  Selecting Multiple Designs (checkboxes)
+    -> Tick multiple design cards to select them.
+    -> A floating bar appears at the bottom with batch actions:
+
+      CLASSIFY (XGBOOST)      -> Runs the AI model on all selected designs
+                                  to detect and label component types.
+      PACKAGE BUNDLE (.ZIP)   -> Downloads all selected designs as a zip file.
+      Clear selection         -> Deselects all chosen designs.
+
+
+--------------------------------------------------------
+  02 // STUDIO BENCH
+--------------------------------------------------------
+
+Where you deep-dive into a single design's components.
+
+  Component List
+    -> Shows all detected elements in your Figma design.
+    -> Examples: Charts, KPI Cards, Tables, Graphs, Logos, etc.
+
+  Labels / Tags
+    -> The AI's classification label for each component
+       (e.g., "kpi_card", "chart", "table").
+
+  Confidence Score
+    -> A percentage showing how confident the AI is about its label.
+    -> Example: 0.90 means the AI is 90% sure.
+
+  Edit / Correct button
+    -> If the AI misclassified something, you can manually correct the label here.
+
+
+--------------------------------------------------------
+  03 // EXECUTIVE LIVE
+--------------------------------------------------------
+
+A live rendered preview of how your Figma dashboard would
+look as a real, working dashboard.
+
+  Live Preview Panel
+    -> Renders your detected components as an actual working dashboard.
+    -> Charts show as real charts. KPI cards show real numbers.
+
+  Refresh
+    -> Updates the preview with the latest classification results.
+
+
+--------------------------------------------------------
+  04 // NEURAL PIPELINE
+--------------------------------------------------------
+
+Shows the behind-the-scenes AI processing steps.
+Useful for developers or if something goes wrong.
+
+  Pipeline Flow Visualization
+    -> Shows each processing step in order:
+       [Figma Plugin] -> [Receiver (Port 8765)] -> [Feature Extraction]
+       -> [XGBoost Model] -> [Output / Dashboard]
+
+  Status Indicators
+    -> Green checkmark = that step completed successfully.
+    -> Red / warning = something failed in that step.
+
+  Logs
+    -> Detailed text output showing what the AI processed,
+       what features were extracted, and classification results.
+
+
+--------------------------------------------------------
+  05 // INGESTION
+--------------------------------------------------------
+
+Where the magic starts - importing a Figma design into the system.
+
+  Figma File Key Input
+    -> Paste your Figma file's URL or unique file key here.
+    -> Example key: zySHjMU0iQXkjKvr7pPnMe
+
+  Connect / Start button
+    -> Kicks off the import. The system pulls all frames and
+       components from your Figma file using the Figma API.
+
+  Status Messages
+    -> Shows real-time progress: "Connecting...", "Extracting frames...",
+       "Processing complete!" or error messages if something went wrong.
+
+
+--------------------------------------------------------
+  HOW THE WHOLE FLOW WORKS (STEP BY STEP)
+--------------------------------------------------------
+
+  STEP 1 -> Open your Figma design file in Figma (desktop or web).
+
+  STEP 2 -> Run the Figma Plugin inside Figma.
+             This sends your design data to your local computer.
+
+  STEP 3 -> The Python receiver (plugin_receiver.py) running on
+             Port 8765 on your computer receives and processes the data.
+
+  STEP 4 -> Go to the Figma2Insight website.
+             The Archive tab will show your imported design.
+
+  STEP 5 -> Click on the design card.
+             Studio Bench shows all the AI-detected components.
+
+  STEP 6 -> Click "Executive Live" to see your design
+             rendered as a real working dashboard.
+
+  STEP 7 -> Use "Neural Pipeline" to check if all processing
+             steps completed without errors.
+
+
+--------------------------------------------------------
+  QUICK TIPS FOR BEGINNERS
+--------------------------------------------------------
+
+  * The "PORT 8765 ACTIVE" indicator must be green for live features.
+    If it is not green, run this command in your terminal:
+      python plugin_receiver.py
+
+  * Your Figma Token is stored safely in a .env file on your
+    computer - it is never uploaded to GitHub or the website.
+
+  * The website is a static frontend. The AI (Python backend)
+    runs on your local computer, not on the cloud.
+
+  * Use EDITION: NOIR for dark mode - it is easier on the eyes
+    during long working sessions!
+
+  * Press "/" anywhere on the site to instantly jump to search.
+
+
+========================================================
+  END OF BEGINNER'S GUIDE
+  Figma2Insight - Neural Dashboard Synthesis
+========================================================
