@@ -1,5 +1,5 @@
 /**
- * ATELIER VISTA — High-Fashion Neural Dashboard Synthesis
+ * FIGMA2INSIGHT — Neural Dashboard Synthesis
  * Data Registry & Ingestion Store
  */
 
@@ -332,7 +332,7 @@ const ATELIER_DATA = {
       id: "prada-editorial",
       numericId: 91,
       nodeId: "12:402",
-      name: "Atelier Haute Performance // Global Index",
+      name: "Figma2Insight // Global Executive Index",
       category: "Luxury Commerce",
       status: "GENERATED",
       needsReviewCount: 0,
@@ -675,7 +675,7 @@ const ATELIER_DATA = {
       {
         id: "synthesize",
         name: "05 // ARCHITECTURAL 12×12 SYNTHESIS",
-        description: "Generate mathematical grid mapping and standardized Vista page.json",
+        description: "Generate mathematical grid mapping and standardized Figma2Insight page.json",
         script: "src/output/generate_vista_page.py",
         status: "PENDING",
         output: "outputs/vista_pages/new_dashboard/page.json"
