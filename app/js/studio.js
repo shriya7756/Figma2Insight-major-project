@@ -1,15 +1,20 @@
 /**
- * ATELIER VISTA // STUDIO WORKBENCH MODULE
+ * FIGMA2INSIGHT // STUDIO WORKBENCH MODULE
  * Dual-Bench Interactive Synthesis (Figma Decomposition vs 12x12 Neural Grid)
  */
 
 const ATELIER_STUDIO = {
   selectedComponentId: null,
   selectedWidgetId: null,
+  _eventsBound: false,
+  _isDownloading: false,
 
   init() {
     this.render();
-    this.bindEvents();
+    if (!this._eventsBound) {
+      this.bindEvents();
+      this._eventsBound = true;
+    }
   },
 
   bindEvents() {
@@ -424,13 +429,18 @@ const ATELIER_STUDIO = {
   },
 
   generateVistaPageObject() {
+    return this.generateFigma2InsightPageObject();
+  },
+
+  generateFigma2InsightPageObject() {
     const design = ATELIER_DATA.getActiveDesign();
     const contentId = Math.random().toString(36).substring(2, 7);
     const slideId = Math.random().toString(36).substring(2, 7);
 
     return {
       schemaVersion: "1.0",
-      format: "local-dashboard-page",
+      format: "figma2insight-dashboard-page",
+      platform: "Figma2Insight",
       id: crypto.randomUUID ? crypto.randomUUID() : "gen-" + Date.now(),
       contentId,
       slideId,
@@ -459,30 +469,40 @@ const ATELIER_STUDIO = {
   },
 
   copyPageJson() {
-    const pageObj = this.generateVistaPageObject();
+    const pageObj = this.generateFigma2InsightPageObject();
     const jsonStr = JSON.stringify(pageObj, null, 2);
     navigator.clipboard.writeText(jsonStr).then(() => {
-      ATELIER_APP.showToast("Vista page.json copied to clipboard");
+      ATELIER_APP.showToast("Figma2Insight page.json copied to clipboard");
     }).catch(() => {
       ATELIER_APP.showToast("Failed to copy JSON");
     });
   },
 
   downloadPageJson() {
-    const pageObj = this.generateVistaPageObject();
+    if (this._isDownloading) return;
+    this._isDownloading = true;
+    setTimeout(() => { this._isDownloading = false; }, 1200);
+
+    const pageObj = this.generateFigma2InsightPageObject();
     const jsonStr = JSON.stringify(pageObj, null, 2);
     const blob = new Blob([jsonStr], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${ATELIER_DATA.getActiveDesign().id}_page.json`;
+    const active = ATELIER_DATA.getActiveDesign();
+    const designId = (active && active.id) ? active.id : "figma2insight";
+    a.download = `${designId}_figma2insight_page.json`;
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(url);
-    ATELIER_APP.showToast("page.json download initiated");
+    setTimeout(() => {
+      if (document.body.contains(a)) document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 150);
+    ATELIER_APP.showToast("Figma2Insight page.json downloaded");
   },
 
   openRawJsonModal() {
-    const pageObj = this.generateVistaPageObject();
+    const pageObj = this.generateFigma2InsightPageObject();
     const jsonStr = JSON.stringify(pageObj, null, 2);
     const modalViewer = document.getElementById("raw-json-viewer");
     if (modalViewer) {
