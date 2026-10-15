@@ -1,5 +1,5 @@
 /**
- * ATELIER VISTA // MAIN APPLICATION CONTROLLER
+ * FIGMA2INSIGHT // MAIN APPLICATION CONTROLLER
  * Routing, Catalog Management, Modals, Batch Operations & Ingestion
  */
 
